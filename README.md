@@ -32,17 +32,23 @@ FROM stroke_data;
 ### Etant donnée que l'âge minimum est assez bas, cela peut suggerer que même les enfants peuvent être a risque.
 ### Un âge maximum élevé est attendu et montre que les mesures préventives doivent se concentrer sur les personnes âgées pour réduire le risque d’AVC
 
-# On cherche la moyenne et l'écart type du niveau de glucose et du BMI (indice de masse corporelle)
+## On cherche la moyenne et l'écart type du niveau de glucose et du BMI (indice de masse corporelle)
+
+SELECT 
+    AVG(avg_glucose_level) AS avg_glucose,
+    STDDEV(avg_glucose_level) AS stddev_glucose,
+    AVG(bmi) AS avg_bmi,
+    STDDEV(bmi) AS stddev_bmi
+FROM stroke_data;
+
+## Interprétation
+### A COMPLETER
+
+
+## Identification des valeurs aberrantes : Détecter et traiter les valeurs anormales dans les données pour éviter les biais (avec CTE ou non)
 
 
 
 
-
-
-
-
-
-
-# Utilisation des CTE pour calculer les statistiques descriptives
 
 
