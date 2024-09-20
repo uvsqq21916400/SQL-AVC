@@ -19,6 +19,20 @@ WHERE age LIKE '%.%';
 ### On désactive le safe mode
 SET SQL_SAFE_UPDATES = 0;
 
+
+#On cherche la moyenne et l'écart type du niveau de glucose et du BMI (indice de masse corporelle)
+
+
+
+
+
+
+
+
+
+
+#Utilisation des CTE pour calculer les statistiques descriptives
+
 ### On efface donc les lignes ayant les décimales.
 DELETE FROM stroke_data
 WHERE age like '%.%';
