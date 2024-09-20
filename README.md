@@ -5,6 +5,7 @@ Objectif : Obtenir une vue d'ensemble des caractéristiques démographiques et d
 # Exploration des données
 
 #On cherche la moyenne d'âge des patients susceptibles d'avoir un arrêt cérébrale, l'âge minimum des patients ainsi que le maximum
+
 SELECT ROUND(AVG(age),2) AS Age_Moy, MIN(age) AS Age_Min, MAX(age) AS Age_Max
 FROM stroke_data;
 
