@@ -67,14 +67,32 @@ FROM GlucoseParHT;
 
 ## Identification des valeurs aberrantes :
 
-### En se basant sur la moyenne et l'écart-type du taux de glucose et du BMI
+### En se basant sur la moyenne et l'écart-type du taux de glucose et du BMI, nous llons identifier les valeurs aberrantes
 SELECT 
-    AVG(avg_glucose_level) AS avg_glucose, 
-    STDDEV(avg_glucose_level) AS stddev_glucose,
-    AVG(bmi) AS avg_bmi, 
-    STDDEV(bmi) AS stddev_bmi
-FROM 
-    stroke_data;
+    ROUND(AVG(avg_glucose_level),2) AS avg_glucose, 
+    ROUND(STDDEV(avg_glucose_level),2) AS stddev_glucose,
+    ROUND(AVG(bmi),2) AS avg_bmi, 
+    ROUND(STDDEV(bmi),2) AS stddev_bmi
+FROM stroke_data;
+
+### Nous retrouvons pour la moyenne du taux de glucose : 127,87 et son écart-type : 59,43. La moyenne de l'IMC qui est de 29,67 et son écart type 2,82
+
+SELECT avg_glucose_level, bmi,
+    CASE 
+        WHEN avg_glucose_level < (127.87 - 2 * 59.43) OR avg_glucose_level > (127.87 + 2 * 59.43) THEN 'Outlier' 
+        ELSE 'Normal' 
+    END AS glucose_status,
+    CASE 
+        WHEN bmi < (29.67 - 2 * 2.82) OR bmi > (29.67 + 2 * 2.82) THEN 'Outlier' 
+        ELSE 'Normal' 
+    END AS bmi_status
+FROM stroke_data
+WHERE (avg_glucose_level < 9.01 OR avg_glucose_level > 246.73)
+OR    (bmi < 24.03 OR bmi > 35.31);
+
+### On retrouvera des données aberrantes au niveau de l'IMC. Nous supprimerons donc les données aberrantes pour améliorer la précision des résultats.
+
+
 
 
 
