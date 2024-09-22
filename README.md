@@ -10,7 +10,7 @@ SELECT ROUND(AVG(age),2) AS Age_Moy, MIN(age) AS Age_Min, MAX(age) AS Age_Max
 FROM stroke_data;
 
 ### La moyenne d'âge des patients est 52.05, l'âge maximum est 82 mais on remarque tout de suite qu'il y a une erreur au niveau de l'âge minimum qui est 0.48.
-### Pour régler ce problème nous allons procéder au nettoyage des valeurs non entiers.
+### Avant d'interpréter ces résultats, nous allons tout d'abord identifier les valeurs aberrantes qui peuvent fausser les résultats d'analyses statistiques,
 
 ### On vérifie les valeurs qui sont des nombres décimaux
 SELECT age from stroke_data
@@ -41,9 +41,39 @@ SELECT
     STDDEV(bmi) AS stddev_bmi
 FROM stroke_data;
 
-## Interprétation
-### 
-###
+### Identifications des valeurs aberrantes pour le niveau de glucose et de IMC/BMI
+
+### Les résultats retrouvés sont la moyenne du taux de glucose : 127,87 et son écart-type : 59,43. La moyenne de l'IMC qui est de 29,67 et son écart type 2,82.
+
+SELECT avg_glucose_level, bmi,
+    CASE 
+        WHEN avg_glucose_level < (127.87 - 2 * 59.43) OR avg_glucose_level > (127.87 + 2 * 59.43) THEN 'Outlier'
+        ELSE 'Normal' 
+    END AS glucose_status,
+    CASE 
+        WHEN bmi < (29.67 - 2 * 2.82) OR bmi > (29.67 + 2 * 2.82) THEN 'Outlier' 
+        ELSE 'Normal' 
+    END AS bmi_status
+FROM stroke_data
+WHERE (avg_glucose_level < 9.01 OR avg_glucose_level > 246.73)
+OR    (bmi < 24.03 OR bmi > 35.31);
+
+### On retrouvera des données aberrantes au niveau de l'IMC. Nous supprimerons donc les données aberrantes.
+
+DELETE FROM stroke_data
+WHERE 
+    (avg_glucose_level < 9.01 OR avg_glucose_level > 246.73)
+    OR 
+    (bmi < 24.03 OR bmi > 35.31);
+
+### En réexecutant la requête, nous obtenons des données plus précises :
+
+SELECT 
+    AVG(avg_glucose_level) AS avg_glucose,
+    STDDEV(avg_glucose_level) AS stddev_glucose,
+    AVG(bmi) AS avg_bmi,
+    STDDEV(bmi) AS stddev_bmi
+FROM stroke_data;
 
 ### On cherche maintenant la moyenne du niveau de glucose par catégorie d’hypertension : 
 WITH GlucoseParHT AS (
@@ -63,34 +93,8 @@ FROM GlucoseParHT;
 ## Interprétation
 ### La légère différence de moyenne des niveaux de glucose entre les patients hypertendus et non hypertendus montre que, dans cette base de données, l’hypertension n’a pas d’impact majeur sur les niveaux de glucose. 
 
-# Méthodes obligatoires
 
-## Identification des valeurs aberrantes :
 
-### En se basant sur la moyenne et l'écart-type du taux de glucose et du BMI, nous llons identifier les valeurs aberrantes
-SELECT 
-    ROUND(AVG(avg_glucose_level),2) AS avg_glucose, 
-    ROUND(STDDEV(avg_glucose_level),2) AS stddev_glucose,
-    ROUND(AVG(bmi),2) AS avg_bmi, 
-    ROUND(STDDEV(bmi),2) AS stddev_bmi
-FROM stroke_data;
-
-### Nous retrouvons pour la moyenne du taux de glucose : 127,87 et son écart-type : 59,43. La moyenne de l'IMC qui est de 29,67 et son écart type 2,82
-
-SELECT avg_glucose_level, bmi,
-    CASE 
-        WHEN avg_glucose_level < (127.87 - 2 * 59.43) OR avg_glucose_level > (127.87 + 2 * 59.43) THEN 'Outlier' 
-        ELSE 'Normal' 
-    END AS glucose_status,
-    CASE 
-        WHEN bmi < (29.67 - 2 * 2.82) OR bmi > (29.67 + 2 * 2.82) THEN 'Outlier' 
-        ELSE 'Normal' 
-    END AS bmi_status
-FROM stroke_data
-WHERE (avg_glucose_level < 9.01 OR avg_glucose_level > 246.73)
-OR    (bmi < 24.03 OR bmi > 35.31);
-
-### On retrouvera des données aberrantes au niveau de l'IMC. Nous supprimerons donc les données aberrantes pour améliorer la précision des résultats.
 
 
 
