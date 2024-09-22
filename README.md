@@ -9,11 +9,6 @@ SET SQL_SAFE_UPDATES = 0;
 SELECT age from stroke_data
 WHERE age LIKE '%.%';
 
-SELECT 
-    COALESCE(FLOOR(age), 0) AS cleaned_age
-FROM projet.projetSQL;
-
-
 ### Suppression des lignes avec des âges décimaux
 DELETE FROM stroke_data
 WHERE age LIKE '%.%';
@@ -32,6 +27,16 @@ WHERE
     (avg_glucose_level < (127.87 - 2 * 59.43) OR avg_glucose_level > (127.87 + 2 * 59.43))
     OR 
     (bmi < (29.67 - 2 * 2.82) OR bmi > (29.67 + 2 * 2.82));
+
+### Nous avons choisi d'opter pour une méthode de nettoyage des données qui consiste à supprimer les lignes contenant des valeurs aberrantes. Cette approche est essentielle pour garantir la qualité et la fiabilité des analyses que nous allons réaliser sur le dataset, en éliminant les données qui pourraient fausser les résultats.
+
+### A noter que nous aurions également pu utiliser la fonction COALESCE dans mes requêtes SQL comme une alternative pour le nettoyage des données. Par exemple, en utilisant la commande suivante :
+
+SELECT 
+    COALESCE(FLOOR(age), 0) AS cleaned_age
+FROM projet.projetSQL;
+
+### Cette fonction permet de remplacer les valeurs nulles ou invalides par une valeur par défaut, ici 0, ce qui pourrait également contribuer à maintenir l'intégrité des données. 
 
 # Analyse statistique
 
