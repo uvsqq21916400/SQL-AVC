@@ -418,5 +418,5 @@ FROM EmploymentStrokeAnalysis;
 ## Glucose Élevé : De plus, le taux de glucose moyen des mariés (133.16) est supérieur à celui des non mariés (110.71), ce qui peut indiquer une prédisposition à des problèmes métaboliques, comme le diabète, qui augmentent également le risque d'AVC.
 
 ### Conclusion
-## En résumé, nos résultats indiquent que les individus mariés peuvent être plus stressés et, par conséquent, en moins bonne santé, ce qui les rend plus propices à subir un AVC. Il serait pertinent d'explorer davantage les dynamiques relationnelles et leurs impacts sur la santé physique et mentale, afin de mieux comprendre cette association. Si tu souhaites approfondir ce sujet ou examiner d'autres aspects, fais-le moi savoir !
+## En résumé, nos résultats indiquent que les individus mariés peuvent être plus stressés et, par conséquent, en moins bonne santé, ce qui les rend plus propices à subir un AVC. Il serait pertinent d'explorer davantage les dynamiques relationnelles et leurs impacts sur la santé physique et mentale, afin de mieux comprendre cette association.
 
