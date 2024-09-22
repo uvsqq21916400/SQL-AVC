@@ -248,5 +248,101 @@ GROUP BY bmi_category;
 ### Conclusion :
 ## Les résultats mettent en évidence un lien entre l'IMC, l'hypertension et les maladies cardiaques. Ces observations soulignent l'importance de la gestion du poids dans la prévention de maladies graves. Si tu souhaites explorer d'autres aspects ou analyses, n'hésite pas à demander !
 
+### 9. Analyse sur les antécédents médicaux
 
+WITH MedicalHistory AS (
+    SELECT 
+        SUM(hypertension) AS total_hypertension,
+        SUM(heart_disease) AS total_heart_disease,
+        COUNT(*) AS total_count
+    FROM projet.projetSQL
+)
+SELECT 
+    total_hypertension,
+    total_heart_disease,
+    total_count,
+    (total_hypertension * 100.0 / total_count) AS percentage_hypertension,
+    (total_heart_disease * 100.0 / total_count) AS percentage_heart_disease
+FROM MedicalHistory;
+
+
+### Interprétation :
+
+## Total d'hypertension (47) :
+## Cela indique qu'il y a 47 cas d'hypertension parmi les 195 individus évalués. Cela représente une proportion importante de la population, suggérant que l'hypertension est un problème de santé majeur dans ce groupe.
+
+## Total de maladies cardiaques (33) :
+## Il y a 33 cas de maladies cardiaques dans cette même population. Bien que ce chiffre soit inférieur à celui des cas d'hypertension, il demeure préoccupant, indiquant une prévalence significative de problèmes cardiaques.
+
+## Total de la population (195) :
+## Ce chiffre représente l'ensemble de la population évaluée, ce qui permet de calculer les pourcentages.
+
+## Pourcentage d'hypertension (24.10 %) :
+## Environ 24.1 % des individus de cette population ont des antécédents d'hypertension. Cela est supérieur à 20 %, ce qui est souvent considéré comme un seuil préoccupant. Cela pourrait indiquer un besoin urgent d'interventions de santé publique pour aborder les facteurs de risque associés à l'hypertension.
+
+## Pourcentage de maladies cardiaques (16.92 %) :
+## Près de 16.9 % des individus présentent des antécédents de maladies cardiaques. Bien que ce pourcentage soit inférieur à celui de l'hypertension, il reste suffisamment élevé pour justifier une attention. Les maladies cardiaques étant souvent liées à d'autres facteurs de risque, il est important de cibler ce groupe pour des interventions préventives.
+
+### Analyse sur les antécédents médicaux :
+
+## Contexte global :
+## Les résultats montrent une prévalence élevée d'hypertension et une prévalence notable de maladies cardiaques dans la population évaluée. Cela indique un lien potentiel entre ces conditions et d'autres facteurs tels que l'IMC, le mode de vie, et les habitudes alimentaires.
+
+## Implications pour la santé :
+## La nécessité d'interventions de santé publique ciblées pour la gestion de l'hypertension et la prévention des maladies cardiaques est évidente. Cela pourrait inclure des programmes de sensibilisation, des conseils nutritionnels, et des initiatives pour promouvoir l'activité physique.
+
+### Conclusion :
+## Ces résultats mettent en évidence un besoin urgent de stratégies de santé publique pour traiter et prévenir l'hypertension et les maladies cardiaques dans cette population. Si tu as d'autres questions ou souhaites explorer des aspects supplémentaires, fais-le moi savoir !
+
+
+WITH StrokeAnalysis AS (
+    SELECT 
+        CASE 
+            WHEN hypertension = 1 THEN 'Hypertension'
+            WHEN heart_disease = 1 THEN 'Maladie cardiaque'
+            WHEN smoking_status IN ('smoke', 'formerly smoked') THEN 'Fumeur'
+            ELSE 'Sans antécédents'
+        END AS medical_history,
+        COUNT(*) AS count,
+        SUM(stroke) AS total_strokes
+    FROM projet.projetSQL
+    GROUP BY medical_history
+)
+SELECT 
+    medical_history,
+    count,
+    total_strokes,
+    (total_strokes * 100.0 / NULLIF(count, 0)) AS percentage_strokes
+FROM StrokeAnalysis;
+
+### Résultats :
+
+## Sans antécédents
+## Total (count) : 121
+## Total d'AVC (total_strokes) : 28
+## Pourcentage d'AVC (percentage_strokes) : 23.14 %
+
+## Maladie cardiaque :
+## Total (count) : 27
+## Total d'AVC (total_strokes) : 5
+## Pourcentage d'AVC (percentage_strokes) : 18.52 %
+
+## Hypertension :
+## Total (count) : 47
+## Total d'AVC (total_strokes) : 6
+## Pourcentage d'AVC (percentage_strokes) : 12.77 %
+
+### Interprétation :
+
+## Sans antécédents (23.14 %) :
+## Environ 23.14 % des personnes sans antécédents médicaux ont subi un AVC. Ce pourcentage relativement élevé pourrait indiquer que d'autres facteurs non médicaux (comme le mode de vie ou l'environnement) jouent un rôle important dans le risque d'AVC, même chez des individus sans antécédents.
+
+## Maladie cardiaque (18.52 %) :
+## Près de 18.52 % des personnes avec des antécédents de maladie cardiaque ont subi un AVC. Bien que ce pourcentage soit inférieur à celui des personnes sans antécédents, il reste préoccupant, indiquant un risque notable associé à la maladie cardiaque.
+
+## Hypertension (12.77 %) :
+## Environ 12.77 % des individus souffrant d'hypertension ont eu un AVC, ce qui est le pourcentage le plus bas parmi les trois groupes. Cela pourrait suggérer que, bien que l'hypertension soit un facteur de risque important, d'autres éléments (comme la présence de maladies cardiaques) pourraient avoir un impact plus direct sur le risque d'AVC.
+
+### Conclusion :
+## Ces résultats soulignent que, même parmi les personnes sans antécédents médicaux, il existe un risque d'AVC. De plus, bien que les maladies cardiaques et l'hypertension soient liées à des risques accrus, les taux d'AVC varient, suggérant que d'autres facteurs de risque, potentiellement liés à des habitudes de vie ou des conditions environnementales, pourraient influencer le risque global d'AVC. Cela met en lumière l'importance d'une approche holistique dans la prévention des AVC. Si tu souhaites approfondir certains aspects ou explorer d'autres analyses, n'hésite pas à demander !
 
