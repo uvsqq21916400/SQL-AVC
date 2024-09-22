@@ -106,6 +106,23 @@ GROUP BY smoking_status;
 ### Pour les anciens fumeurs, avec un taux d'AVC de 28.26%, les anciens fumeurs présentent un risque plus élevé que les non-fumeurs mais moins que les patients avec un statut inconnu (28,26%)
 ### Etonnamment, les fumeurs ont le taux le plus bas d'AVC avec 5,8% environ. Il est possible que d'autres facteurs, comme des comportements de santé ou des traitements médicaux, influencent ces résultats.
 
+### Nous analyserons bien évidemment la fréquence des AVC par tranche d'âge pour identifier si l'âge est bien un facteur d'AVC.
+SELECT 
+    CASE 
+        WHEN age < 30 THEN 'Moins de 30'
+        WHEN age BETWEEN 30 AND 39 THEN '30-39'
+        WHEN age BETWEEN 40 AND 49 THEN '40-49'
+        WHEN age BETWEEN 50 AND 59 THEN '50-59'
+        WHEN age BETWEEN 60 AND 69 THEN '60-69'
+        WHEN age >= 70 THEN '70 et plus'
+    END AS groupe_age,
+    COUNT(*) AS total_patients,
+    SUM(stroke) AS stroke_cases,
+    AVG(stroke) * 100 AS stroke_rate
+FROM stroke_data
+GROUP BY groupe_age;
+
+### Interpretation
 
 
 
