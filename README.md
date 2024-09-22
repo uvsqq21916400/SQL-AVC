@@ -118,9 +118,11 @@ SELECT
         WHEN age >= 65 THEN 'doyen (65 ans et plus)'
         ELSE 'Non défini'
     END AS tranche_age,
-    COUNT(*) AS total
+    count(*) AS total,
+    round(avg(avg_glucose_level), 2) as avg_glucose,
+    round(avg(bmi),2) as avg_bmi
 FROM projet.projetSQL
-GROUP BY tranche_age;
+GROUP BY tranche_age ;
 
 ### Interprétation
 
