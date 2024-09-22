@@ -92,6 +92,21 @@ FROM GlucoseParHT;
 ### La légère différence de moyenne des niveaux de glucose entre les patients hypertendus et non hypertendus montre que, dans cette base de données, l’hypertension n’a pas d’impact majeur sur les niveaux de glucose. 
 
 
+## Nous allons maintenant regrouper les patients selon leur statut tabagique (fumeurs/non-fumeurs) pour analyser la fréquence des AVC dans chaque groupe : 
+
+SELECT 
+    smoking_status,
+    COUNT(*) AS total_patients,
+    SUM(stroke) AS stroke_cases,
+    AVG(stroke) * 100 AS avg_stroke
+FROM stroke_data
+GROUP BY smoking_status;
+
+### Nous pouvons remarquer que pour les patient n'ayant jamais fumé présentent un taux d'AVC modéré (15.0%) qui suggère que le fait de ne jamais avoir fumé est associé à un risque relativement plus bas d'AVC.
+### Pour les anciens fumeurs, avec un taux d'AVC de 28.26%, les anciens fumeurs présentent un risque plus élevé que les non-fumeurs mais moins que les patients avec un statut inconnu (28,26%)
+### Etonnamment, les fumeurs ont le taux le plus bas d'AVC avec 5,8% environ. Il est possible que d'autres facteurs, comme des comportements de santé ou des traitements médicaux, influencent ces résultats.
+
+
 
 
 
