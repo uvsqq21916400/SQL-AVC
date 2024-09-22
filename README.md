@@ -346,3 +346,77 @@ FROM StrokeAnalysis;
 ### Conclusion :
 ## Ces résultats soulignent que, même parmi les personnes sans antécédents médicaux, il existe un risque d'AVC. De plus, bien que les maladies cardiaques et l'hypertension soient liées à des risques accrus, les taux d'AVC varient, suggérant que d'autres facteurs de risque, potentiellement liés à des habitudes de vie ou des conditions environnementales, pourraient influencer le risque global d'AVC. Cela met en lumière l'importance d'une approche holistique dans la prévention des AVC. Si tu souhaites approfondir certains aspects ou explorer d'autres analyses, n'hésite pas à demander !
 
+### Analyse sur la vie personnelle
+
+WITH EmploymentStrokeAnalysis AS (
+    SELECT 
+        work_type AS employment_type,
+        COUNT(*) AS total_count,
+        SUM(stroke) AS total_strokes,
+        AVG(bmi) AS average_bmi,          -- Moyenne de l'IMC par type d'emploi
+        AVG(avg_glucose_level) AS average_glucose   -- Moyenne du taux de glucose par type d'emploi
+    FROM projet.projetSQL
+    GROUP BY work_type
+)
+SELECT 
+    employment_type,
+    total_count,
+    total_strokes,
+    (total_strokes * 100.0 / NULLIF(total_count, 0)) AS percentage_strokes,
+    average_glucose
+FROM EmploymentStrokeAnalysis;
+
+### Résultats
+
+## 1. Travailleur autonome (Self-employed)
+## - Total : 44
+## - AVC : 12
+## - Pourcentage d'AVC : 27.27 %
+## - IMC moyen : 117.16
+   
+## Interprétation : Un pourcentage d'AVC assez élevé (27.27 %), ce qui pourrait indiquer un risque accru associé à ce type de travail. L'IMC moyen est aussi notablement élevé, ce qui pourrait signaler un risque de santé lié à l'obésité.
+
+## 2. Secteur privé (Private)
+## - Total : 114
+## - AVC : 22
+## - Pourcentage d'AVC : 19.30 %
+## - IMC moyen : 134.80
+   
+## Interprétation : Bien que le pourcentage d'AVC soit inférieur à celui des travailleurs autonomes, il reste significatif. L'IMC est également élevé, suggérant que les employés du secteur privé peuvent également faire face à des risques de santé.
+
+## 3. Fonction publique (Govt_job)
+## - Total : 27
+## - AVC : 5
+## - Pourcentage d'AVC : 18.52 %
+## - IMC moyen : 117.65
+   
+## Interprétation : Le pourcentage d'AVC est le plus bas parmi les groupes, indiquant que ce type d'emploi pourrait être associé à un risque légèrement inférieur. L'IMC est similaire à celui des travailleurs autonomes, mais le risque d'AVC est moins élevé.
+
+## 4. Enfants (children)
+## - Total : 10
+## - AVC : 0
+## - Pourcentage d'AVC : 0.00 %
+## - IMC moyen : 123.47
+   
+## Interprétation : Aucun AVC signalé dans ce groupe, ce qui pourrait indiquer que les enfants ont un risque très faible. L'IMC moyen est également relativement élevé, mais la petite taille de l'échantillon rend cette observation moins significative.
+
+### Conclusion
+## - Risque d'AVC : Les travailleurs autonomes affichent le risque le plus élevé d'AVC, suivis par ceux du secteur privé et de la fonction publique. Cela peut être lié à des facteurs comme le stress, le mode de vie ou les conditions de travail.
+## - IMC : Des IMC moyens élevés dans tous les groupes, sauf pour les enfants, pourraient indiquer un lien entre l'obésité et le risque d'AVC.
+## - Suggestions : Il pourrait être bénéfique d'explorer des programmes de santé préventifs pour les travailleurs autonomes et du secteur privé, en se concentrant sur la gestion du stress et l'amélioration des habitudes de vie.
+
+## stress associé au mariage :
+
+### Interprétation des Résultats
+
+## Les données montrent que les individus mariés (Yes) affichent un pourcentage d'AVC de 22.82 %, comparé à **10.87 %** chez les non mariés (No). Ce résultat suggère que le mariage pourrait être associé à un risque accru d'AVC.
+
+## Stress et Santé : Le mariage, bien qu'il puisse offrir un soutien émotionnel, peut également engendrer du stress lié à des responsabilités accrues, à des conflits relationnels ou à des attentes sociales. Ce stress peut se traduire par des habitudes de vie moins saines, notamment une alimentation moins équilibrée et une activité physique réduite.
+
+## IMC Élevé : L'IMC moyen des mariés (30.41) indique qu'ils sont en surpoids, ce qui est un facteur de risque connu pour de nombreux problèmes de santé, y compris les AVC. En comparaison, les non mariés présentent un IMC moyen de 27.27, suggérant une meilleure gestion de leur poids.
+
+## Glucose Élevé : De plus, le taux de glucose moyen des mariés (133.16) est supérieur à celui des non mariés (110.71), ce qui peut indiquer une prédisposition à des problèmes métaboliques, comme le diabète, qui augmentent également le risque d'AVC.
+
+### Conclusion
+## En résumé, nos résultats indiquent que les individus mariés peuvent être plus stressés et, par conséquent, en moins bonne santé, ce qui les rend plus propices à subir un AVC. Il serait pertinent d'explorer davantage les dynamiques relationnelles et leurs impacts sur la santé physique et mentale, afin de mieux comprendre cette association. Si tu souhaites approfondir ce sujet ou examiner d'autres aspects, fais-le moi savoir !
+
