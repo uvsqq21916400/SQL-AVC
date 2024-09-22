@@ -147,9 +147,106 @@ GROUP BY tranche_age ;
 ## Les jeunes (15-24 ans) ont un glucose bas mais un BMI un peu plus élevé, ce qui pourrait indiquer une tendance vers un surpoids, mais ils ne montrent pas encore de signes de détérioration métabolique.
 ## Ces données mettent en évidence des différences dans les risques de santé potentiels en fonction de l'âge, avec des populations plus âgées présentant un risque plus élevé de problèmes de santé liés à des niveaux élevés de glucose et de BMI.
 
+## 8. Analyse par IMC
+
+SELECT AVG(bmi) AS average_bmi
+FROM health_data;
+
+SELECT 
+    COUNT(CASE WHEN stroke = 1 THEN 1 END) AS stroke_count,
+    COUNT(*) AS total_count,
+    (COUNT(CASE WHEN stroke = 1 THEN 1 END) * 100.0 / COUNT(*)) AS stroke_percentage
+FROM projet.projetSQL
+WHERE bmi >= 30 ;
+
+### Interprétation :
+
+## stroke_count (15) : Cela indique qu'il y a eu **15 cas d'AVC** (accidents vasculaires cérébraux) parmi les personnes évaluées. Ce chiffre représente le nombre total de personnes dans cette catégorie d'IMC qui ont subi un AVC.
+
+## total_count (94) : Ce chiffre représente le **total de 94 personnes** dans la catégorie d'IMC considérée. Cela inclut toutes les personnes, qu'elles aient ou non des antécédents d'AVC.
+
+## stroke_percentage (15.95745) : Ce pourcentage signifie qu'environ **15.96 %** des personnes dans cette catégorie d'IMC ont subi un AVC. C'est un indicateur clé pour évaluer le risque d'AVC dans cette population.
+
+### Analyse IMC :
+
+## Contexte de l'IMC : Pour analyser les résultats dans le contexte de l'IMC, il serait pertinent de comparer ce pourcentage avec celui des autres catégories d'IMC (anorexie, sous-poids, poids normal, surpoids, obésité).
+  
+## Évaluation du risque : Si ce pourcentage est significativement plus élevé que celui des autres catégories, cela peut suggérer un lien entre cette catégorie d'IMC et un risque accru d'AVC.
+  
+## Conclusion : Une prévalence d’AVC de presque 16 % dans cette catégorie d'IMC pourrait indiquer la nécessité d'interventions ciblées pour réduire ce risque. Cela pourrait inclure des programmes de sensibilisation à la santé, des conseils nutritionnels ou d'autres mesures de prévention.
+
+SELECT 
+    CASE
+        WHEN bmi <= 17.5 THEN 'Anorexie' 
+        WHEN bmi BETWEEN 17.5 AND 18.5 THEN 'Sous-poids'
+        WHEN bmi BETWEEN 18.5 AND 24.9 THEN 'Poids normal'
+        WHEN bmi BETWEEN 25 AND 29.9 THEN 'Sur-poids'
+        ELSE 'Obésité'
+    END AS bmi_category,
+    COUNT(*) AS count,
+	COUNT(*) * 100.0 / (SELECT COUNT(*) FROM projet.projetSQL) AS percentage
+FROM projet.projetSQL 
+GROUP BY bmi_category ;
+
+### Interprétation :
+
+## Obésité (count : 103, percentage : 52.82 %) :
+## Interprétation : Plus de la moitié (52.82 %) des individus dans cette analyse sont classés comme obèses. Cela suggère que l'obésité est un problème de santé significatif dans la population étudiée, et cela peut être lié à divers risques pour la santé, y compris des maladies cardiovasculaires, le diabète, et, comme mentionné précédemment, un risque accru d'AVC.
+
+## Sur-poids (count : 83, percentage : 42.56 %) :
+## Interprétation : Près de 43 % des individus sont classés comme en surpoids. Cela, combiné à la proportion élevée d'obésité, indique une tendance préoccupante vers un surpoids généralisé dans cette population. Ce groupe pourrait également être à risque accru de comorbidités associées à l'obésité.
+
+## Poids normal (count : 9, percentage : 4.62 %) :
+## Interprétation : Seulement 4.62 % des individus sont dans la catégorie de poids normal. Cela souligne le fait que la majorité de la population étudiée souffre d'une surcharge pondérale (surpoids ou obésité), ce qui pose des questions sur la santé publique et les mesures de prévention à mettre en place.
+
+### Analyse IMC :
+
+## Contexte global :
+##  - Ces résultats montrent une prévalence élevée d'obésité et de surpoids dans la population, indiquant un besoin urgent d'interventions de santé publique pour aborder ces problèmes. 
+## - Une faible proportion de personnes avec un poids normal peut indiquer des habitudes alimentaires malsaines, un manque d'activité physique, ou d'autres facteurs contribuant à l'augmentation du poids.
+
+## Implications pour la santé :
+##  - Les taux élevés d'obésité et de surpoids sont souvent associés à des risques accrus de maladies chroniques, ce qui souligne l'importance d'évaluer les habitudes de vie et les facteurs environnementaux.
+
+## Conclusion :
+## Les résultats révèlent une situation préoccupante en matière de santé publique, nécessitant des actions visant à promouvoir un mode de vie sain, notamment des programmes de sensibilisation à la nutrition et à l'exercice physique. Si tu souhaites approfondir certains aspects ou explorer d'autres analyses, fais-le moi savoir !
+
+SELECT 
+    CASE 
+        WHEN bmi < 18.5 THEN 'Underweight'
+        WHEN bmi BETWEEN 18.5 AND 24.9 THEN 'Normal weight'
+        WHEN bmi BETWEEN 25 AND 29.9 THEN 'Overweight'
+        ELSE 'Obesity'
+    END AS bmi_category,
+   round(AVG(hypertension),2) AS avg_hypertension,
+   round(AVG(heart_disease),2) AS avg_heart_disease,
+    COUNT(*) AS count
+FROM projet.projetSQL
+GROUP BY bmi_category;
 
 
+### Interprétation :
+## Obésité (avg_hypertension : 0.38, avg_heart_disease : 0.18, count : 103) :
+## - Hypertension : Une moyenne de 0.38 indique que 38 % des personnes obèses ont des antécédents d'hypertension. Cela suggère un lien fort entre l'obésité et l'hypertension, ce qui est attendu étant donné que l'obésité est un facteur de risque majeur pour l'hypertension.
+## - Maladies cardiaques : Avec une moyenne de 0.18, cela signifie que 18 % des personnes obèses ont des antécédents de maladies cardiaques. Cela indique également un risque accru de problèmes cardiaques dans ce groupe.
 
+## 2. Surpoids (avg_hypertension : 0.10, avg_heart_disease : 0.17, count : 83) :
+## - Hypertension : Une moyenne de 0.10 indique que 10 % des personnes en surpoids ont des antécédents d'hypertension, ce qui est significativement plus bas que chez les obèses, mais indique toujours un risque relatif.
+## - Maladies cardiaques : Une moyenne de 0.17 signifie que 17 % des personnes en surpoids ont des antécédents de maladies cardiaques, ce qui est proche de la proportion observée chez les obèses.
+
+## 3. Poids normal (avg_hypertension : 0.00, avg_heart_disease : 0.00, count : 9) :
+## - Hypertension et maladies cardiaques : Aucune personne dans cette catégorie n'a d'antécédents d'hypertension ou de maladies cardiaques. Cela suggère que les personnes avec un poids normal ont un risque nettement plus faible de développer ces conditions.
+
+### Analyse IMC :
+## - Contexte global :
+## - Les résultats montrent une tendance claire : plus l'IMC augmente, plus les risques d'hypertension et de maladies cardiaques augmentent.
+## - L'absence d'antécédents dans la catégorie "poids normal" souligne l'importance d'un poids sain pour la prévention des maladies chroniques.
+
+## - Implications pour la santé :
+## - Les résultats soulignent la nécessité de cibler les populations obèses et en surpoids pour des interventions de santé préventives. Cela peut inclure des programmes de gestion du poids, de nutrition, et d'exercice physique.
+
+### Conclusion :
+## Les résultats mettent en évidence un lien entre l'IMC, l'hypertension et les maladies cardiaques. Ces observations soulignent l'importance de la gestion du poids dans la prévention de maladies graves. Si tu souhaites explorer d'autres aspects ou analyses, n'hésite pas à demander !
 
 
 
