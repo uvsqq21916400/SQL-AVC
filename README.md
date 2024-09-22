@@ -106,9 +106,44 @@ GROUP BY groupe_age;
 ### Interpretation
 
 
+## 7. Analyse par niveau de glucose
+
+### Nous cherchons à établir des tranches d'âges dans notre cas de figure pour déterminer la tranche d'âge ayant le plus de personnes exposées au risque de maladie cérébrale.
+
+SELECT 
+    CASE 
+        WHEN age BETWEEN 0 AND 14 THEN 'enfant (0-14 ans)'
+        WHEN age BETWEEN 15 AND 24 THEN 'jeune (15-24 ans)'
+        WHEN age BETWEEN 25 AND 64 THEN 'adulte (25-64 ans)'
+        WHEN age >= 65 THEN 'doyen (65 ans et plus)'
+        ELSE 'Non défini'
+    END AS tranche_age,
+    COUNT(*) AS total
+FROM projet.projetSQL
+GROUP BY tranche_age;
+
+### Interprétation
+
+## Ces données montrent les statistiques agrégées des individus répartis par tranche d'âge, avec le nombre total d'individus, la moyenne de leur niveau de glucose (`avg_glucose`) et la moyenne de leur indice de masse corporelle (`avg_bmi`). Voici une interprétation des résultats :
 
 
+## 1. Adultes (25-64 ans) :
+## Interprétation : Cette tranche d'âge montre un niveau de glucose relativement élevé (130.91) et un BMI moyen légèrement au-dessus de la limite de surpoids (un BMI de 31.01 est dans la catégorie de l'obésité selon l'OMS). Cela suggère que les adultes de ce groupe peuvent être à risque de problèmes de santé liés à l'obésité et au diabète, étant donné les niveaux élevés de glucose et de BMI.
 
+## 2. Doyens (65 ans et plus) :
+## Interprétation : Les doyens montrent un niveau de glucose assez proche de celui des adultes, mais légèrement plus faible. Leur BMI moyen (29.53) est juste en dessous de 30, donc à la limite de l'obésité. Le fait que les doyens aient un niveau de glucose et un BMI élevés pourrait indiquer un risque de maladies chroniques telles que le diabète de type 2 ou des maladies cardiovasculaires.
+
+## 3. Enfants (0-14 ans) :
+## Interprétation : Le niveau de glucose des enfants est plus bas que celui des adultes et des doyens (122.31), ce qui est typique puisque les enfants sont généralement en meilleure santé métabolique. Leur BMI moyen est également dans une fourchette normale (21.08), ce qui suggère qu'ils ont une santé relativement bonne par rapport aux autres tranches d'âge.
+
+## 4. Jeunes (15-24 ans) :
+## Interprétation : Les jeunes ont le niveau de glucose moyen le plus bas (98.21), ce qui est un bon indicateur de leur santé métabolique. Leur BMI moyen est de 26.7, ce qui les place dans la catégorie de surpoids selon les normes de l'OMS. Il pourrait y avoir des signes de surpoids chez certains jeunes, mais cela n'a pas encore affecté leur niveau de glucose de manière significative.
+
+## Interprétation globale :
+## Les adultes (25-64 ans) et les doyens (65 ans et plus) ont des niveaux de glucose et de BMI plus élevés, ce qui peut être un signe de risque accru de maladies métaboliques (comme le diabète de type 2 ou l'obésité).
+## Les enfants (0-14 ans) ont des indicateurs de santé plus équilibrés, avec un niveau de glucose et un BMI normaux.
+## Les jeunes (15-24 ans) ont un glucose bas mais un BMI un peu plus élevé, ce qui pourrait indiquer une tendance vers un surpoids, mais ils ne montrent pas encore de signes de détérioration métabolique.
+## Ces données mettent en évidence des différences dans les risques de santé potentiels en fonction de l'âge, avec des populations plus âgées présentant un risque plus élevé de problèmes de santé liés à des niveaux élevés de glucose et de BMI.
 
 
 
