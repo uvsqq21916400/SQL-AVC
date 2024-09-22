@@ -9,6 +9,11 @@ SET SQL_SAFE_UPDATES = 0;
 SELECT age from stroke_data
 WHERE age LIKE '%.%';
 
+SELECT 
+    COALESCE(FLOOR(age), 0) AS cleaned_age
+FROM projet.projetSQL;
+
+
 ### Suppression des lignes avec des âges décimaux
 DELETE FROM stroke_data
 WHERE age LIKE '%.%';
