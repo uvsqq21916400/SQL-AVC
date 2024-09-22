@@ -42,7 +42,8 @@ SELECT
 FROM stroke_data;
 
 ## Interprétation
-### A COMPLETER
+### L'écart-type étant très loin de la moyenne peut signifier qu'il y a une grande variabilité dans les niveaux de glucose, avec des valeurs largement dispersées autour de la moyenne. Cela pourrait indiquer une population hétérogène avec différents niveaux de risque.
+###
 
 ### On cherche maintenant la moyenne du niveau de glucose par catégorie d’hypertension : 
 WITH GlucoseParHT AS (
