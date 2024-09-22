@@ -2,7 +2,7 @@
 
 # Analyse statistique
 
-### On cherche la moyenne d'âge des patients susceptibles d'avoir un arrêt cérébrale, l'âge minimum des patients ainsi que le maximum
+## On cherche la moyenne d'âge des patients susceptibles d'avoir un arrêt cérébrale, l'âge minimum des patients ainsi que le maximum
 
 SELECT ROUND(AVG(age),2) AS Age_Moy, MIN(age) AS Age_Min, MAX(age) AS Age_Max
 FROM stroke_data;
@@ -73,7 +73,7 @@ SELECT
     STDDEV(bmi) AS stddev_bmi
 FROM stroke_data;
 
-### On cherche maintenant la moyenne du niveau de glucose par catégorie d’hypertension : 
+## On cherche maintenant la moyenne du niveau de glucose par catégorie d’hypertension : 
 WITH GlucoseParHT AS (
     SELECT 
         hypertension, 
@@ -88,7 +88,7 @@ SELECT
     END AS hypertension_status, avg_glucose
 FROM GlucoseParHT;
 
-## Interprétation
+### Interprétation
 ### La légère différence de moyenne des niveaux de glucose entre les patients hypertendus et non hypertendus montre que, dans cette base de données, l’hypertension n’a pas d’impact majeur sur les niveaux de glucose. 
 
 
@@ -106,7 +106,8 @@ GROUP BY smoking_status;
 ### Pour les anciens fumeurs, avec un taux d'AVC de 28.26%, les anciens fumeurs présentent un risque plus élevé que les non-fumeurs mais moins que les patients avec un statut inconnu (28,26%)
 ### Etonnamment, les fumeurs ont le taux le plus bas d'AVC avec 5,8% environ. Il est possible que d'autres facteurs, comme des comportements de santé ou des traitements médicaux, influencent ces résultats.
 
-### Nous analyserons bien évidemment la fréquence des AVC par tranche d'âge pour identifier si l'âge est bien un facteur d'AVC.
+## Nous analyserons bien évidemment la fréquence des AVC par tranche d'âge pour vérifier que l'âge est bien un facteur d'AVC en se basant sur les connaissances médicales.
+
 SELECT 
     CASE 
         WHEN age < 30 THEN 'Moins de 30'
