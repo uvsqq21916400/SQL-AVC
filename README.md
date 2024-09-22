@@ -44,6 +44,25 @@ FROM stroke_data;
 ## Interprétation
 ### A COMPLETER
 
+### On cherche maintenant la moyenne du niveau de glucose par catégorie d’hypertension : 
+WITH GlucoseParHT AS (
+    SELECT 
+        hypertension, 
+        round(AVG(avg_glucose_level),2) AS avg_glucose
+    FROM stroke_data
+    GROUP BY hypertension)
+SELECT 
+    CASE 
+        WHEN hypertension = 0 THEN 'Pas hypertension' 
+        WHEN hypertension = 1 THEN 'Hypertension' 
+        ELSE 'Inconnue' 
+    END AS hypertension_status, avg_glucose
+FROM GlucoseParHT;
+
+## Interprétation
+### La légère différence de moyenne des niveaux de glucose entre les patients hypertendus et non hypertendus montre que, dans cette base de données, l’hypertension n’a pas d’impact majeur sur les niveaux de glucose. 
+
+
 
 ## Identification des valeurs aberrantes : Détecter et traiter les valeurs anormales dans les données pour éviter les biais (avec CTE ou non)
 
