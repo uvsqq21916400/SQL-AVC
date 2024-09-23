@@ -62,7 +62,7 @@ FROM stroke_data;
 ### Interpretation
 ### A REMPLIR
 
-## 4. Moyenne du niveau de glucose par catégorie d’hypertension
+## 3. Moyenne du niveau de glucose par catégorie d’hypertension
 
 WITH GlucoseParHT AS (
     SELECT 
@@ -82,7 +82,7 @@ FROM GlucoseParHT;
 ### La légère différence de moyenne des niveaux de glucose entre les patients hypertendus et non hypertendus montre que, dans cette base de données, l’hypertension n’a pas d’impact majeur sur les niveaux de glucose. 
 
 
-## 5. Fréquence des AVC par statut tabagique
+## 4. Fréquence des AVC par statut tabagique
 
 SELECT 
     smoking_status,
@@ -96,7 +96,7 @@ GROUP BY smoking_status;
 ### Pour les anciens fumeurs, avec un taux d'AVC de 28.26%, les anciens fumeurs présentent un risque plus élevé que les non-fumeurs mais moins que les patients avec un statut inconnu (28,26%)
 ### Etonnamment, les fumeurs ont le taux le plus bas d'AVC avec 5,8% environ. Il est possible que d'autres facteurs, comme des comportements de santé ou des traitements médicaux, influencent ces résultats.
 
-## 6. Fréquence des AVC par tranche d'âge
+## . Fréquence des AVC par tranche d'âge
 
 SELECT 
     CASE 
@@ -116,7 +116,7 @@ GROUP BY groupe_age;
 ### Interpretation
 
 
-## 7. Analyse par niveau de glucose
+## 5. Analyse par niveau de glucose
 
 ### Nous cherchons à établir des tranches d'âges dans notre cas de figure pour déterminer la tranche d'âge ayant le plus de personnes exposées au risque de maladie cérébrale.
 
@@ -157,7 +157,7 @@ GROUP BY tranche_age ;
 ## Les jeunes (15-24 ans) ont un glucose bas mais un BMI un peu plus élevé, ce qui pourrait indiquer une tendance vers un surpoids, mais ils ne montrent pas encore de signes de détérioration métabolique.
 ## Ces données mettent en évidence des différences dans les risques de santé potentiels en fonction de l'âge, avec des populations plus âgées présentant un risque plus élevé de problèmes de santé liés à des niveaux élevés de glucose et de BMI.
 
-## 8. Analyse par IMC
+## 6. Analyse par IMC
 
 SELECT AVG(bmi) AS average_bmi
 FROM health_data;
@@ -258,7 +258,7 @@ GROUP BY bmi_category;
 ### Conclusion :
 ## Les résultats mettent en évidence un lien entre l'IMC, l'hypertension et les maladies cardiaques. Ces observations soulignent l'importance de la gestion du poids dans la prévention de maladies graves. Si tu souhaites explorer d'autres aspects ou analyses, n'hésite pas à demander !
 
-### 9. Analyse sur les antécédents médicaux
+### 7. Analyse sur les antécédents médicaux
 
 WITH MedicalHistory AS (
     SELECT 
@@ -293,7 +293,7 @@ FROM MedicalHistory;
 ## Pourcentage de maladies cardiaques (16.92 %) :
 ## Près de 16.9 % des individus présentent des antécédents de maladies cardiaques. Bien que ce pourcentage soit inférieur à celui de l'hypertension, il reste suffisamment élevé pour justifier une attention. Les maladies cardiaques étant souvent liées à d'autres facteurs de risque, il est important de cibler ce groupe pour des interventions préventives.
 
-### Analyse sur les antécédents médicaux :
+### 8. Analyse sur les antécédents médicaux :
 
 ## Contexte global :
 ## Les résultats montrent une prévalence élevée d'hypertension et une prévalence notable de maladies cardiaques dans la population évaluée. Cela indique un lien potentiel entre ces conditions et d'autres facteurs tels que l'IMC, le mode de vie, et les habitudes alimentaires.
