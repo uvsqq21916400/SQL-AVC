@@ -96,7 +96,7 @@ GROUP BY smoking_status;
 ### Pour les anciens fumeurs, avec un taux d'AVC de 28.26%, les anciens fumeurs présentent un risque plus élevé que les non-fumeurs mais moins que les patients avec un statut inconnu (28,26%)
 ### Etonnamment, les fumeurs ont le taux le plus bas d'AVC avec 5,8% environ. Il est possible que d'autres facteurs, comme des comportements de santé ou des traitements médicaux, influencent ces résultats.
 
-## . Fréquence des AVC par tranche d'âge
+## 5. Fréquence des AVC par tranche d'âge
 
 SELECT 
     CASE 
@@ -116,7 +116,7 @@ GROUP BY groupe_age;
 ### Interpretation
 
 
-## 5. Analyse par niveau de glucose
+## 6. Analyse par niveau de glucose
 
 ### Nous cherchons à établir des tranches d'âges dans notre cas de figure pour déterminer la tranche d'âge ayant le plus de personnes exposées au risque de maladie cérébrale.
 
@@ -139,16 +139,16 @@ GROUP BY tranche_age ;
 ## Ces données montrent les statistiques agrégées des individus répartis par tranche d'âge, avec le nombre total d'individus, la moyenne de leur niveau de glucose (`avg_glucose`) et la moyenne de leur indice de masse corporelle (`avg_bmi`). Voici une interprétation des résultats :
 
 
-## 1. Adultes (25-64 ans) :
+## a. Adultes (25-64 ans) :
 ## Interprétation : Cette tranche d'âge montre un niveau de glucose relativement élevé (130.91) et un BMI moyen légèrement au-dessus de la limite de surpoids (un BMI de 31.01 est dans la catégorie de l'obésité selon l'OMS). Cela suggère que les adultes de ce groupe peuvent être à risque de problèmes de santé liés à l'obésité et au diabète, étant donné les niveaux élevés de glucose et de BMI.
 
-## 2. Doyens (65 ans et plus) :
+## b. Doyens (65 ans et plus) :
 ## Interprétation : Les doyens montrent un niveau de glucose assez proche de celui des adultes, mais légèrement plus faible. Leur BMI moyen (29.53) est juste en dessous de 30, donc à la limite de l'obésité. Le fait que les doyens aient un niveau de glucose et un BMI élevés pourrait indiquer un risque de maladies chroniques telles que le diabète de type 2 ou des maladies cardiovasculaires.
 
-## 3. Enfants (0-14 ans) :
+## c. Enfants (0-14 ans) :
 ## Interprétation : Le niveau de glucose des enfants est plus bas que celui des adultes et des doyens (122.31), ce qui est typique puisque les enfants sont généralement en meilleure santé métabolique. Leur BMI moyen est également dans une fourchette normale (21.08), ce qui suggère qu'ils ont une santé relativement bonne par rapport aux autres tranches d'âge.
 
-## 4. Jeunes (15-24 ans) :
+## d. Jeunes (15-24 ans) :
 ## Interprétation : Les jeunes ont le niveau de glucose moyen le plus bas (98.21), ce qui est un bon indicateur de leur santé métabolique. Leur BMI moyen est de 26.7, ce qui les place dans la catégorie de surpoids selon les normes de l'OMS. Il pourrait y avoir des signes de surpoids chez certains jeunes, mais cela n'a pas encore affecté leur niveau de glucose de manière significative.
 
 ## Interprétation globale :
@@ -157,7 +157,7 @@ GROUP BY tranche_age ;
 ## Les jeunes (15-24 ans) ont un glucose bas mais un BMI un peu plus élevé, ce qui pourrait indiquer une tendance vers un surpoids, mais ils ne montrent pas encore de signes de détérioration métabolique.
 ## Ces données mettent en évidence des différences dans les risques de santé potentiels en fonction de l'âge, avec des populations plus âgées présentant un risque plus élevé de problèmes de santé liés à des niveaux élevés de glucose et de BMI.
 
-## 6. Analyse par IMC
+## 7. Analyse par IMC 
 
 SELECT AVG(bmi) AS average_bmi
 FROM health_data;
@@ -169,7 +169,7 @@ SELECT
 FROM projet.projetSQL
 WHERE bmi >= 30 ;
 
-### Interprétation :
+### A. Interprétation - selon les cas d'AVC :
 
 ## stroke_count (15) : Cela indique qu'il y a eu **15 cas d'AVC** (accidents vasculaires cérébraux) parmi les personnes évaluées. Ce chiffre représente le nombre total de personnes dans cette catégorie d'IMC qui ont subi un AVC.
 
@@ -177,7 +177,7 @@ WHERE bmi >= 30 ;
 
 ## stroke_percentage (15.95745) : Ce pourcentage signifie qu'environ **15.96 %** des personnes dans cette catégorie d'IMC ont subi un AVC. C'est un indicateur clé pour évaluer le risque d'AVC dans cette population.
 
-### Analyse IMC :
+### B. Analyse IMC selon l'indice de masse corporelle :
 
 ## Contexte de l'IMC : Pour analyser les résultats dans le contexte de l'IMC, il serait pertinent de comparer ce pourcentage avec celui des autres catégories d'IMC (anorexie, sous-poids, poids normal, surpoids, obésité).
   
@@ -200,16 +200,16 @@ GROUP BY bmi_category ;
 
 ### Interprétation :
 
-## Obésité (count : 103, percentage : 52.82 %) :
+## a. Obésité (count : 103, percentage : 52.82 %) :
 ## Interprétation : Plus de la moitié (52.82 %) des individus dans cette analyse sont classés comme obèses. Cela suggère que l'obésité est un problème de santé significatif dans la population étudiée, et cela peut être lié à divers risques pour la santé, y compris des maladies cardiovasculaires, le diabète, et, comme mentionné précédemment, un risque accru d'AVC.
 
-## Sur-poids (count : 83, percentage : 42.56 %) :
+## b. Sur-poids (count : 83, percentage : 42.56 %) :
 ## Interprétation : Près de 43 % des individus sont classés comme en surpoids. Cela, combiné à la proportion élevée d'obésité, indique une tendance préoccupante vers un surpoids généralisé dans cette population. Ce groupe pourrait également être à risque accru de comorbidités associées à l'obésité.
 
-## Poids normal (count : 9, percentage : 4.62 %) :
+## c. Poids normal (count : 9, percentage : 4.62 %) :
 ## Interprétation : Seulement 4.62 % des individus sont dans la catégorie de poids normal. Cela souligne le fait que la majorité de la population étudiée souffre d'une surcharge pondérale (surpoids ou obésité), ce qui pose des questions sur la santé publique et les mesures de prévention à mettre en place.
 
-### Analyse IMC :
+### C. Analyse IMC en globalité :
 
 ## Contexte global :
 ##  - Ces résultats montrent une prévalence élevée d'obésité et de surpoids dans la population, indiquant un besoin urgent d'interventions de santé publique pour aborder ces problèmes. 
@@ -219,8 +219,9 @@ GROUP BY bmi_category ;
 ##  - Les taux élevés d'obésité et de surpoids sont souvent associés à des risques accrus de maladies chroniques, ce qui souligne l'importance d'évaluer les habitudes de vie et les facteurs environnementaux.
 
 ## Conclusion :
-## Les résultats révèlent une situation préoccupante en matière de santé publique, nécessitant des actions visant à promouvoir un mode de vie sain, notamment des programmes de sensibilisation à la nutrition et à l'exercice physique. Si tu souhaites approfondir certains aspects ou explorer d'autres analyses, fais-le moi savoir !
+## Les résultats révèlent une situation préoccupante en matière de santé publique, nécessitant des actions visant à promouvoir un mode de vie sain, notamment des programmes de sensibilisation à la nutrition et à l'exercice physique. 
 
+### D. Analyse IMC en prenant en compte le poids et les antécédents médicaux (à reformuler si besoin) :
 SELECT 
     CASE 
         WHEN bmi < 18.5 THEN 'Underweight'
@@ -236,18 +237,18 @@ GROUP BY bmi_category;
 
 
 ### Interprétation :
-## Obésité (avg_hypertension : 0.38, avg_heart_disease : 0.18, count : 103) :
+## a. Obésité (avg_hypertension : 0.38, avg_heart_disease : 0.18, count : 103) :
 ## - Hypertension : Une moyenne de 0.38 indique que 38 % des personnes obèses ont des antécédents d'hypertension. Cela suggère un lien fort entre l'obésité et l'hypertension, ce qui est attendu étant donné que l'obésité est un facteur de risque majeur pour l'hypertension.
 ## - Maladies cardiaques : Avec une moyenne de 0.18, cela signifie que 18 % des personnes obèses ont des antécédents de maladies cardiaques. Cela indique également un risque accru de problèmes cardiaques dans ce groupe.
 
-## 2. Surpoids (avg_hypertension : 0.10, avg_heart_disease : 0.17, count : 83) :
+## b. Surpoids (avg_hypertension : 0.10, avg_heart_disease : 0.17, count : 83) :
 ## - Hypertension : Une moyenne de 0.10 indique que 10 % des personnes en surpoids ont des antécédents d'hypertension, ce qui est significativement plus bas que chez les obèses, mais indique toujours un risque relatif.
 ## - Maladies cardiaques : Une moyenne de 0.17 signifie que 17 % des personnes en surpoids ont des antécédents de maladies cardiaques, ce qui est proche de la proportion observée chez les obèses.
 
-## 3. Poids normal (avg_hypertension : 0.00, avg_heart_disease : 0.00, count : 9) :
+## c. Poids normal (avg_hypertension : 0.00, avg_heart_disease : 0.00, count : 9) :
 ## - Hypertension et maladies cardiaques : Aucune personne dans cette catégorie n'a d'antécédents d'hypertension ou de maladies cardiaques. Cela suggère que les personnes avec un poids normal ont un risque nettement plus faible de développer ces conditions.
 
-### Analyse IMC :
+### E. Analyse IMC :
 ## - Contexte global :
 ## - Les résultats montrent une tendance claire : plus l'IMC augmente, plus les risques d'hypertension et de maladies cardiaques augmentent.
 ## - L'absence d'antécédents dans la catégorie "poids normal" souligne l'importance d'un poids sain pour la prévention des maladies chroniques.
@@ -258,7 +259,7 @@ GROUP BY bmi_category;
 ### Conclusion :
 ## Les résultats mettent en évidence un lien entre l'IMC, l'hypertension et les maladies cardiaques. Ces observations soulignent l'importance de la gestion du poids dans la prévention de maladies graves. Si tu souhaites explorer d'autres aspects ou analyses, n'hésite pas à demander !
 
-### 7. Analyse sur les antécédents médicaux
+### 8. Analyse sur les antécédents médicaux
 
 WITH MedicalHistory AS (
     SELECT 
@@ -276,24 +277,24 @@ SELECT
 FROM MedicalHistory;
 
 
-### Interprétation :
+### A. Interprétation des chiffres:
 
-## Total d'hypertension (47) :
+## a. Total d'hypertension (47) :
 ## Cela indique qu'il y a 47 cas d'hypertension parmi les 195 individus évalués. Cela représente une proportion importante de la population, suggérant que l'hypertension est un problème de santé majeur dans ce groupe.
 
-## Total de maladies cardiaques (33) :
+## b. Total de maladies cardiaques (33) :
 ## Il y a 33 cas de maladies cardiaques dans cette même population. Bien que ce chiffre soit inférieur à celui des cas d'hypertension, il demeure préoccupant, indiquant une prévalence significative de problèmes cardiaques.
 
-## Total de la population (195) :
+## c. Total de la population (195) :
 ## Ce chiffre représente l'ensemble de la population évaluée, ce qui permet de calculer les pourcentages.
 
-## Pourcentage d'hypertension (24.10 %) :
+## d. Pourcentage d'hypertension (24.10 %) :
 ## Environ 24.1 % des individus de cette population ont des antécédents d'hypertension. Cela est supérieur à 20 %, ce qui est souvent considéré comme un seuil préoccupant. Cela pourrait indiquer un besoin urgent d'interventions de santé publique pour aborder les facteurs de risque associés à l'hypertension.
 
-## Pourcentage de maladies cardiaques (16.92 %) :
+## e. Pourcentage de maladies cardiaques (16.92 %) :
 ## Près de 16.9 % des individus présentent des antécédents de maladies cardiaques. Bien que ce pourcentage soit inférieur à celui de l'hypertension, il reste suffisamment élevé pour justifier une attention. Les maladies cardiaques étant souvent liées à d'autres facteurs de risque, il est important de cibler ce groupe pour des interventions préventives.
 
-### 8. Analyse sur les antécédents médicaux :
+### B. Analyse sur les antécédents médicaux - corrélation fumeur et antécédants médicaux :
 
 ## Contexte global :
 ## Les résultats montrent une prévalence élevée d'hypertension et une prévalence notable de maladies cardiaques dans la population évaluée. Cela indique un lien potentiel entre ces conditions et d'autres facteurs tels que l'IMC, le mode de vie, et les habitudes alimentaires.
@@ -327,17 +328,17 @@ FROM StrokeAnalysis;
 
 ### Résultats :
 
-## Sans antécédents
+## a. Sans antécédents
 ## Total (count) : 121
 ## Total d'AVC (total_strokes) : 28
 ## Pourcentage d'AVC (percentage_strokes) : 23.14 %
 
-## Maladie cardiaque :
+## b. Maladie cardiaque :
 ## Total (count) : 27
 ## Total d'AVC (total_strokes) : 5
 ## Pourcentage d'AVC (percentage_strokes) : 18.52 %
 
-## Hypertension :
+## c. Hypertension :
 ## Total (count) : 47
 ## Total d'AVC (total_strokes) : 6
 ## Pourcentage d'AVC (percentage_strokes) : 12.77 %
@@ -356,7 +357,7 @@ FROM StrokeAnalysis;
 ### Conclusion :
 ## Ces résultats soulignent que, même parmi les personnes sans antécédents médicaux, il existe un risque d'AVC. De plus, bien que les maladies cardiaques et l'hypertension soient liées à des risques accrus, les taux d'AVC varient, suggérant que d'autres facteurs de risque, potentiellement liés à des habitudes de vie ou des conditions environnementales, pourraient influencer le risque global d'AVC. Cela met en lumière l'importance d'une approche holistique dans la prévention des AVC. Si tu souhaites approfondir certains aspects ou explorer d'autres analyses, n'hésite pas à demander !
 
-### Analyse sur la vie personnelle
+### 9. Analyse sur la vie personnelle
 
 WITH EmploymentStrokeAnalysis AS (
     SELECT 
@@ -378,7 +379,7 @@ FROM EmploymentStrokeAnalysis;
 
 ### Résultats
 
-## 1. Travailleur autonome (Self-employed)
+## a. Travailleur autonome (Self-employed)
 ## - Total : 44
 ## - AVC : 12
 ## - Pourcentage d'AVC : 27.27 %
@@ -386,7 +387,7 @@ FROM EmploymentStrokeAnalysis;
    
 ## Interprétation : Un pourcentage d'AVC assez élevé (27.27 %), ce qui pourrait indiquer un risque accru associé à ce type de travail. L'IMC moyen est aussi notablement élevé, ce qui pourrait signaler un risque de santé lié à l'obésité.
 
-## 2. Secteur privé (Private)
+## b. Secteur privé (Private)
 ## - Total : 114
 ## - AVC : 22
 ## - Pourcentage d'AVC : 19.30 %
@@ -394,7 +395,7 @@ FROM EmploymentStrokeAnalysis;
    
 ## Interprétation : Bien que le pourcentage d'AVC soit inférieur à celui des travailleurs autonomes, il reste significatif. L'IMC est également élevé, suggérant que les employés du secteur privé peuvent également faire face à des risques de santé.
 
-## 3. Fonction publique (Govt_job)
+## c. Fonction publique (Govt_job)
 ## - Total : 27
 ## - AVC : 5
 ## - Pourcentage d'AVC : 18.52 %
@@ -402,7 +403,7 @@ FROM EmploymentStrokeAnalysis;
    
 ## Interprétation : Le pourcentage d'AVC est le plus bas parmi les groupes, indiquant que ce type d'emploi pourrait être associé à un risque légèrement inférieur. L'IMC est similaire à celui des travailleurs autonomes, mais le risque d'AVC est moins élevé.
 
-## 4. Enfants (children)
+## d. Enfants (children)
 ## - Total : 10
 ## - AVC : 0
 ## - Pourcentage d'AVC : 0.00 %
