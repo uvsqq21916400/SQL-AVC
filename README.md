@@ -34,7 +34,7 @@ WHERE
 
 SELECT 
     COALESCE(FLOOR(age), 0) AS cleaned_age
-FROM projet.projetSQL;
+FROM stroke_data;
 
 ### Cette fonction permet de remplacer les valeurs nulles ou invalides par une valeur par défaut, ici 0, ce qui pourrait également contribuer à maintenir l'intégrité des données. 
 
@@ -131,7 +131,7 @@ SELECT
     count(*) AS total,
     round(avg(avg_glucose_level), 2) as avg_glucose,
     round(avg(bmi),2) as avg_bmi
-FROM projet.projetSQL
+FROM stroke_data
 GROUP BY tranche_age ;
 
 ### Interprétation
@@ -166,7 +166,7 @@ SELECT
     COUNT(CASE WHEN stroke = 1 THEN 1 END) AS stroke_count,
     COUNT(*) AS total_count,
     (COUNT(CASE WHEN stroke = 1 THEN 1 END) * 100.0 / COUNT(*)) AS stroke_percentage
-FROM projet.projetSQL
+FROM stroke_data
 WHERE bmi >= 30 ;
 
 ### A. Interprétation - selon les cas d'AVC :
@@ -195,7 +195,7 @@ SELECT
     END AS bmi_category,
     COUNT(*) AS count,
 	COUNT(*) * 100.0 / (SELECT COUNT(*) FROM projet.projetSQL) AS percentage
-FROM projet.projetSQL 
+FROM stroke_data 
 GROUP BY bmi_category ;
 
 ### Interprétation :
@@ -232,7 +232,7 @@ SELECT
    round(AVG(hypertension),2) AS avg_hypertension,
    round(AVG(heart_disease),2) AS avg_heart_disease,
     COUNT(*) AS count
-FROM projet.projetSQL
+FROM stroke_data
 GROUP BY bmi_category;
 
 
@@ -266,7 +266,7 @@ WITH MedicalHistory AS (
         SUM(hypertension) AS total_hypertension,
         SUM(heart_disease) AS total_heart_disease,
         COUNT(*) AS total_count
-    FROM projet.projetSQL
+    FROM stroke_data
 )
 SELECT 
     total_hypertension,
@@ -316,7 +316,7 @@ WITH StrokeAnalysis AS (
         END AS medical_history,
         COUNT(*) AS count,
         SUM(stroke) AS total_strokes
-    FROM projet.projetSQL
+    FROM stroke_data
     GROUP BY medical_history
 )
 SELECT 
@@ -366,7 +366,7 @@ WITH EmploymentStrokeAnalysis AS (
         SUM(stroke) AS total_strokes,
         AVG(bmi) AS average_bmi,          -- Moyenne de l'IMC par type d'emploi
         AVG(avg_glucose_level) AS average_glucose   -- Moyenne du taux de glucose par type d'emploi
-    FROM projet.projetSQL
+    FROM stroke_data
     GROUP BY work_type
 )
 SELECT 
