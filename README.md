@@ -160,7 +160,7 @@ GROUP BY tranche_age ;
 ## 7. Analyse par IMC 
 
 SELECT AVG(bmi) AS average_bmi
-FROM health_data;
+FROM stroke_data;
 
 SELECT 
     COUNT(CASE WHEN stroke = 1 THEN 1 END) AS stroke_count,
