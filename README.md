@@ -1,4 +1,4 @@
-# Projet SQL : Prédictions d'arrêt cérébrale - AVC
+# Projet SQL : Prédictions d'arrêt cérébrale - AVC ; pdf : file:///C:/Users/flavi/Downloads/PROJET%20SQL%20-%20Analyse%20des%20risques%20d'AVC.pdf
 
 
 # Importation de la base de données : https://www.kaggle.com/datasets/zzettrkalpakbal/full-filled-brain-stroke-dataset
